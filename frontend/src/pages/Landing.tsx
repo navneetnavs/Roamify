@@ -86,7 +86,7 @@ const Landing: React.FC = () => {
             {/* Search Box */}
             <form onSubmit={handleSearch} className="animate-slide-up">
               <div className="search-box max-w-3xl mx-auto">
-                <div className="flex-1 min-w-0">
+                <div className="search-box-destination flex-1 min-w-0">
                   <div className="flex items-center gap-2 px-4">
                     <MapPin size={16} className="text-rose-500 shrink-0" />
                     <div className="flex-1">
@@ -103,7 +103,7 @@ const Landing: React.FC = () => {
 
                 <div className="search-divider" />
 
-                <div className="flex-1 min-w-0">
+                <div className="search-box-check-in flex-1 min-w-0">
                   <div className="flex items-center gap-2 px-4">
                     <div className="flex-1">
                       <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">Check-in</div>
@@ -120,7 +120,7 @@ const Landing: React.FC = () => {
 
                 <div className="search-divider" />
 
-                <div className="flex-1 min-w-0">
+                <div className="search-box-check-out flex-1 min-w-0">
                   <div className="flex items-center gap-2 px-4">
                     <div className="flex-1">
                       <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">Check-out</div>
@@ -137,7 +137,7 @@ const Landing: React.FC = () => {
 
                 <div className="search-divider" />
 
-                <div className="flex-1 min-w-0">
+                <div className="search-box-rooms flex-1 min-w-0">
                   <div className="flex items-center gap-2 px-4">
                     <Users size={16} className="text-rose-500 shrink-0" />
                     <div className="flex-1 min-w-0">
@@ -155,7 +155,7 @@ const Landing: React.FC = () => {
 
                 <button type="submit" className="btn btn-primary btn-lg shrink-0 gap-2">
                   <Search size={18} />
-                  <span className="hidden sm:inline">Search</span>
+                  <span>Search</span>
                 </button>
               </div>
             </form>

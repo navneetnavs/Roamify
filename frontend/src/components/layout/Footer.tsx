@@ -4,9 +4,9 @@ import { MapPin, Phone, Mail, Globe, Heart, Share2, Rss } from 'lucide-react';
 const Footer: React.FC = () => (
   <footer className="bg-slate-900 text-slate-300">
     <div className="container py-16">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-10">
         {/* Brand */}
-        <div className="md:col-span-1">
+        <div className="col-span-2 md:col-span-1">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-9 h-9 brand-gradient rounded-xl flex items-center justify-center">
               <span className="text-white font-black text-lg">R</span>
@@ -49,7 +49,7 @@ const Footer: React.FC = () => (
         </div>
 
         {/* Contact */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <h3 className="text-white font-semibold mb-4">Contact</h3>
           <ul className="space-y-3">
             <li className="flex items-center gap-3 text-sm text-slate-400">
