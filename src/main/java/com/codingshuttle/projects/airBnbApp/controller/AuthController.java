@@ -10,7 +10,10 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +30,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Value("${auth.refresh-token-cookie-secure:false}")
+    private boolean refreshTokenCookieSecure;
+
+    @Value("${auth.refresh-token-cookie-same-site:Lax}")
+    private String refreshTokenCookieSameSite;
+
     @PostMapping("/signup")
     @Operation(summary = "Create a new account", tags = {"Auth"})
     public ResponseEntity<UserDto> signup(@RequestBody SignUpRequestDto signUpRequestDto) {
@@ -38,10 +47,13 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginDto loginDto, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String[] tokens = authService.login(loginDto);
 
-        Cookie cookie = new Cookie("refreshToken", tokens[1]);
-        cookie.setHttpOnly(true);
-
-        httpServletResponse.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", tokens[1])
+                .httpOnly(true)
+                .secure(refreshTokenCookieSecure)
+                .sameSite(refreshTokenCookieSameSite)
+                .path("/")
+                .build();
+        httpServletResponse.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(new LoginResponseDto(tokens[0]));
     }
 
