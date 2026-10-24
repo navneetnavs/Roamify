@@ -22,11 +22,12 @@ Keep credentials in the hosting providers' environment-variable settings. Do not
    | `SPRING_DATASOURCE_USERNAME` | Database username from Render |
    | `SPRING_DATASOURCE_PASSWORD` | Database password from Render |
    | `JWT_SECRET_KEY` | A new random secret of at least 32 characters |
+   | `ROAMIFY_ADMIN_PASSWORD` | A strong, unique password for the initial `admin@roamify.com` manager account |
    | `FRONTEND_URL` | The exact production Vercel origin, such as `https://your-app.vercel.app` |
    | `AUTH_REFRESH_TOKEN_COOKIE_SECURE` | `true` |
    | `AUTH_REFRESH_TOKEN_COOKIE_SAME_SITE` | `None` |
    | `STRIPE_SECRET_KEY` | A Stripe secret key; use a test key until ready for live payments |
-   | `STRIPE_WEBHOOK_SECRET` | The signing secret for the Stripe webhook endpoint |
+   | `STRIPE_WEBHOOK_SECRET` | The signing secret for the Stripe webhook endpoint; configure the real value before using payments |
 
    Use Render's internal PostgreSQL connection details, not its external/public connection string. Keep the `jdbc:postgresql://` prefix in the datasource URL.
 4. Deploy and wait for the service to start. The API base path is `/api/v1`.
@@ -38,6 +39,7 @@ Keep credentials in the hosting providers' environment-variable settings. Do not
 3. Add `VITE_API_BASE_URL` with the Render API URL ending in `/api/v1`, for example `https://your-api.onrender.com/api/v1`.
 4. Deploy. Vercel builds with `npm run build` and serves the `dist` directory; `vercel.json` provides client-side route fallback.
 5. Copy the Vercel production origin into Render's `FRONTEND_URL` variable and redeploy the backend if it was not set before the first deploy.
+6. In Stripe test mode, create a webhook for `https://<render-service>.onrender.com/api/v1/webhook/payment` and set its signing secret as `STRIPE_WEBHOOK_SECRET` in Render before testing payments.
 
 ### 4. Verify
 
